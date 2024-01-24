@@ -1,0 +1,24 @@
+//Reverse a string using Stack
+//You are given a string S, the task is to reverse the string using stack.
+
+class Solution {
+ 
+    public String reverse(String str){
+        String ans=""; // Initialize an empty string to store the reversed string
+        Stack<Character> s = new Stack<>(); // Create a stack to store the characters of the string
+        
+        // Push each character of the string onto the stack
+        for (int i=0; i<str.length(); i++) {
+            s.push(str.charAt(i));
+        }
+        
+        // Pop each character from the stack and append it to the result string
+        while(!s.isEmpty()){
+            ans+=s.pop();
+        }
+        
+        // Return the reversed string
+        return ans;
+    }
+
+}
