@@ -1,0 +1,28 @@
+//Longest Common Prefix in an Array
+//Given an array of N strings, find the longest common prefix among all strings present in the array.
+
+class Solution{
+    String longestCommonPrefix(String arr[], int n){
+        if(n==1) return arr[0];
+        String res="";
+        boolean include;
+        for(int i=0;i<arr[0].length();++i){
+            include =true;
+            for(int j=1;j<n;++j){
+                //checking if current char arr[0][i] is eligible for being included in result or not
+                
+                if(i>=arr[j].length()|| arr[0].charAt(i)!=arr[j].charAt(i)){
+                    include=false;
+                    break;
+                }
+                
+            }
+            //if it cant be included, no need to check further char
+            if(!include) break;
+            //if it can be included,then include it and check ahead
+            res+=arr[0].charAt(i);
+        } 
+        if(res=="") return "-1";
+        return res;
+    }
+}
