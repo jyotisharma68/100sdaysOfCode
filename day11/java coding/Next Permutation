@@ -1,0 +1,47 @@
+//Next Permutation
+//Implement the next permutation, which rearranges the list of numbers into Lexicographically
+//next greater permutation of list of numbers. If such arrangement is not possible, it must be rearranged to the lowest possible order i.e.
+//sorted in an ascending order. You are given an list of numbers arr[ ] of size N.
+
+class Solution{
+    //function to swap elements in array
+    void swap(int i, int j, int arr[]){
+        int tmp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = tmp;
+    }
+    
+    // Function to find the next lexicographically greater permutation of the given array
+    List<Integer> nextPermutation(int N, int arr[]){
+        // Initializing variables
+        int ind = 0;
+        int v[] = arr.clone();
+        
+        // Find the largest index i such that arr[i] < arr[i+1]
+        for(int i = N-2; i >= 0; i--){
+            if(v[i] < v[i+1]){
+                ind = i;
+                break;
+            }
+        }
+        
+        // Swapping the element at ind with the smallest element greater than it to its right side
+        for(int i = N-1; i > ind; i--){
+            if(v[i] > v[ind]){
+                swap(i, ind, v);
+                ind++;
+                break;
+            }
+        }
+        
+        // Reverse the elements from ind+1 to N-1 to get the next permutation
+        for(int i = 0; i < (N-ind)/2; i++)
+            swap(i + ind, N - i - 1, v);
+        
+        // Convert array to list and returning the next permutation
+        List<Integer> li = new ArrayList<>();
+        for(int x : v) 
+            li.add(x);
+        return li;
+    }
+}
