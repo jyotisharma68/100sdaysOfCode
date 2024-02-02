@@ -1,0 +1,40 @@
+//Product array puzzle
+//Given an array nums[] of size n, construct a Product Array P (of same size n) such that P[i] is equal to the product of all the elements of nums except nums[i].
+
+class Solution 
+{ 
+	public static long[] productExceptSelf(int arr[], int n) 
+	{ 
+        long[] prod=new long[n];
+        //base case- if size of array is 1,return 1 as product
+        if(n==1){
+            prod[0]=1;
+            return prod;
+        }
+        long temp=1;
+        //intialising the product array as 1
+        //intialising all elements in prod array as 1
+        for(int i=0;i<n;i++){
+            prod[i]=1;
+        }
+        
+        //in this loop,temp variable contains product of elements on left side exclude arr[i]
+        //calculating the product of all elements on left side of each element
+        for(int i=0;i<n;i++){
+            prod[i]=temp;
+            temp *=arr[i];
+        }
+        
+        //intialising temp to 1 for product on right side and calculating the product on right side of each element
+        temp=1;
+        
+        //in this loop,temp variable contains product of element on right side excluding arr[i]
+        //calculating product of all elements on right side
+        for(int i=n-1;i>=0;i--){
+            prod[i] *=temp;
+            temp *=arr[i];
+        }
+        //returning final product array
+        return prod;
+	} 
+} 
