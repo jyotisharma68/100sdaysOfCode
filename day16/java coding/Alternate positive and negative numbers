@@ -1,0 +1,34 @@
+//Alternate positive and negative numbers
+//Given an unsorted array Arr of N positive and negative numbers. Your task is to create an array of alternate positive and negative numbers without changing the relative order of positive and negative numbers.
+//Note: Array should start with a positive number and 0 (zero) should be considered a positive element.
+
+class Solution {
+    void rearrange(int arr[], int n) {
+        //create two ArrayLists to store negative and positive numbers separately
+        ArrayList<Integer> neg = new ArrayList<Integer>();
+        ArrayList<Integer> pos = new ArrayList<Integer>();
+        
+        //iterate through the array and add numbers to the appropriate ArrayList
+        for (int i = 0; i < n; i++) {
+            //if number is negative, add it to the neg ArrayList
+            if (arr[i] < 0)
+                neg.add(arr[i]);
+            //if number is positive, add it to the pos ArrayList
+            else
+                pos.add(arr[i]);
+        }
+
+        //initialize variables for navigating through the neg and pos ArrayLists
+        int i = 0, j = 0, k = 0;
+        //rearrange the array by alternating between positive and negative numbers
+        while (i < neg.size() && j < pos.size()) {
+            arr[k++] = pos.get(j++); //add positive number to array
+            arr[k++] = neg.get(i++); //add negative number to array
+        }
+        //add any remaining positive numbers to the array
+        while (j < pos.size()) { arr[k++] = pos.get(j++); }
+
+        //add any remaining negative numbers to the array
+        while (i < neg.size()) { arr[k++] = neg.get(i++); }
+        }
+}
