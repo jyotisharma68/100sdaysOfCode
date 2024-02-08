@@ -1,0 +1,32 @@
+//Find Missing And Repeating
+//Given an unsorted array Arr of size N of positive integers. One number 'A' from set {1, 2,....,N} is missing and one number 'B' occurs twice in array. Find these two numbers.
+
+class Solve {
+    int[] findTwoElement(int arr[], int n) {
+        //initialising an array to store 2 elements
+        int[] ans=new int[2];
+        
+        for(int i=0;i<n;i++){
+            //getting absolute value of each element
+            int abs_val=Math.abs(arr[i]);
+            
+            
+            //check if element at index abs_val -1 is positve,if +ve,negate it
+            //if -ve,store abs_val asa first missing element
+            if(arr[abs_val-1]>0)
+                arr[abs_val-1] = -arr[abs_val-1];
+            else
+                ans[0]=abs_val;//stores the 1st missing element
+        }
+        
+        
+        //finding +ve element,which indicates missing element
+        for(int i=0;i<n;i++){
+            if(arr[i]>0)
+                ans[1]=i+1;//stores 2nd missing element
+        }
+        
+        //returning array containing 2 missing elements
+        return ans;
+    }
+}
