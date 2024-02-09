@@ -1,0 +1,34 @@
+//The Celebrity Problem
+//A celebrity is a person who is known to all but does not know anyone at a party. If you go to a party of N people, find if there is a celebrity in the party or not.
+//A square NxN matrix M[][] is used to represent people at the party such that if an element of row i and column j  is set to 1 it means ith person knows jth person. Here M[i][i] will always be 0.
+//Note: Follow 0 based indexing.
+//Follow Up: Can you optimize it to O(N)
+
+class Solution
+{ 
+    //Function to find if there is a celebrity in the party or not.
+    int celebrity(int M[][], int n)
+    {
+    	// initialising 2pointers for 2 corner
+    	int a=0;
+    	int b=n-1;
+    	
+    	//keep moving till a<b
+    	while(a<b){
+    	    if(M[a][b]==1)
+    	        a++;
+    	    else
+    	        b--;
+    	}
+    	
+    	//check if a is actually a celebrity or not
+    	for(int i=0;i<n;i++){
+    	    //if any person dont know a or a knows any person return -1
+    	    if((i!=a) && (M[a][i]==1 || M[i][a]==0))
+    	        return -1;
+    	}
+    	
+    	//if reached here a is celebrity ,return a
+    	return a;
+    }
+}
