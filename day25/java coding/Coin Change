@@ -1,0 +1,29 @@
+//Coin Change
+//Given an integer array coins[ ] of size N representing different denominations of currency and an integer sum, find the number of ways you can make sum by using different combinations from coins[ ].  
+//Note: Assume that you have an infinite supply of each type of coin. And you can use any coin as many times as you want.
+
+
+class Solution {
+   
+        //function to count no of ways to make sum using given coins
+        public long count(int coins[],int N,int sum){
+            //creating table to store no of ways to make each sum from 0 to sum
+            long table[]=new long[sum+1];
+            
+            //initialize the table with 0
+            for(int i=0;i<sum+1;i++)
+                table[i]=0;
+                
+            //there is always 1 way to make sum of 0,set table[0] to 1
+            table[0]=1;
+            
+            //calculate the no of ways to make each sum from 0 to sum
+            for(int i=0;i<N;i++)
+                for(int j=coins[i];j<=sum;j++)
+                    table[j]+=table[j-coins[i]];
+                    
+                    
+        //returning the no of ways to make desired sum
+            return table[sum];
+    }
+}
