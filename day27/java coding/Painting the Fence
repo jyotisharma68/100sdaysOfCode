@@ -1,0 +1,40 @@
+//Painting the Fence
+//Given a fence with n posts and k colors, find out the number of ways of painting the fence so that not more than two consecutive posts have the same colors.
+//Since the answer can be large return it modulo 109 + 7.
+
+class Solution
+{
+    //function to count no of ways
+    public long countWays(int n,int k)
+    {
+        //create an array to store no of ways for each no of fences
+        long[] dp=new long[n+1];
+        
+        //initialising dp array with 0
+        Arrays.fill(dp,0);
+        
+        //setting base case,when there is only 1 fence
+        dp[1]=k;
+        
+        //initialising variables to keep count and different color fence
+        long same=0,diff=k;
+        
+        //iterating over fence startiing from 2.
+        for(int i=2;i<=n;i++){
+            //update value of same to previous value of diff.
+            
+            same=diff;
+            
+            //calculate no of ways for diff color fences
+            diff=dp[i-1]*(k-1)%1000000007;
+            
+            //calculate total no of ways
+            dp[i]=(same+diff)%1000000007;
+        }
+        
+        
+        //return no of ways for n fence
+        return dp[n];
+    
+    }
+}
