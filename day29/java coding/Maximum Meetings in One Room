@@ -1,0 +1,38 @@
+//Maximum Meetings in One Room
+//There is one meeting room in a firm. There are N meetings in the form of (S[i], F[i]) where S[i] is the start time of meeting i and F[i] is the finish time of meeting i.
+//The task is to find the maximum number of meetings that can be accommodated in the meeting room. You can accommodate a meeting if the start time of the meeting is strictly greater than the finish time of the previous meeting. Print all meeting numbers.
+
+//Note: If two meetings can be chosen for the same slot then choose meeting that finishes earlier.
+
+class Solution {
+    public static ArrayList<Integer> maxMeetings(int N, int[] S, int[] F) {
+        // N-no of meetings,  S-array of start times , F-array of finish times
+        int[][] meetings=new int[N][2];
+        for(int i=0;i<N;i++){
+            meetings[i][0]=F[i];  //finish time
+            meetings[i][1]=i;  //index of the meeting
+            
+        }
+        //sort the meetings array based on finish time using Arrays.sort and custom comparator.
+        //comparator compares the finish times(a[0]) of 2 meetings
+        Arrays.sort(meetings, Comparator.comparingInt(a -> a[0]));
+        int tym=meetings[0][0]; //initialising varibale tym with finish time of first meeting in sorted array
+        ArrayList<Integer> ans=new ArrayList<>();  //create ArrayList named ans to store indices of selected meetings
+        ans.add(meetings[0][1] + 1); //add index of first meeting to result list
+        
+        
+        for(int i=1;i<N;i++){
+            
+            //check if start time of current meeting is greater than finish timeof last selected meeting or not
+            if(S[meetings[i][1]] > tym){
+                ans.add(meetings[i][1] + 1);  //add index of current meeting to result list
+                tym=meetings[i][0];  //u[date tym to finish time of current meeting
+                
+                
+            }
+        }
+        Collections.sort(ans); //sort ans list to get indices of meeting in ascending order
+        return ans;
+    }
+}
+     
