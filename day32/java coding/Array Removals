@@ -1,0 +1,51 @@
+//Array Removals
+//Given an array arr[] of size N and an integer K. The task is to find the minimum number of elements that should be removed, such that Amax-Amin<=K. After the removal of elements, Amax and Amin is considered among the remaining elements. 
+
+//Note: Can you solve the probelm without using any extra space and O(N*log(N)) time complexity?
+
+class Solution {
+    int dp[][];
+    int removals(int[] arr, int n, int k) {
+        // code here
+        Arrays.sort(arr);
+     
+        // fill all stated with -1
+        // when only one element
+        dp=new int[101][101];
+        for(int i=0;i<101;i++){
+            Arrays.fill(dp[i],-1);
+        }
+        if (n == 1)
+            return 0;
+        else
+            return countRemovals(arr, 0, n - 1, k);
+    }
+    // function to check all possible combinations
+    // of removal and return the minimum one
+    int countRemovals(int arr[], int i, int j, int k)
+    {
+        // base case when all elements are removed
+        if (i >= j)
+            return 0;
+     
+        // if condition is satisfied, no more
+        // removals are required
+        else if ((arr[j] - arr[i]) <= k)
+            return 0;
+     
+        // if the state has already been visited
+        else if (dp[i][j] != -1)
+            return dp[i][j];
+     
+        // when Amax-Amin>d
+        else if ((arr[j] - arr[i]) > k) {
+     
+            // minimum is taken of the removal
+            // of minimum element or removal
+            // of the maximum element
+            dp[i][j] = 1 + Math.min(countRemovals(arr, i + 1, j, k),
+                               countRemovals(arr, i, j - 1, k));
+        }
+        return dp[i][j];
+    }
+}
