@@ -1,0 +1,43 @@
+//Zero Sum Subarrays
+//You are given an array arr[] of size n. Find the total count of sub-arrays having their sum equal to 0.
+
+class Solution{
+    //Function to count subarrays with sum equal to 0.
+    public static long findSubarray(long[] arr ,int n) 
+    {
+        long sum=0,counter=0;
+        //using hashmap to store prefix sum which has appeared already
+        HashMap<Long, Long>mp=new HashMap<>();
+        
+        //iterating over arrya
+        for(int i=0;i<n;i++){
+            //storing prefix sum
+            sum+=arr[i];
+            
+            //if prefix sum is 0 that means we get subarray with sum=0
+            if(sum==0){
+                //incrementing counter
+                counter++;
+            }
+            
+            //if prefix sum is already present in hashmap then it is repeated
+            //i.e. there is subaaray whose summation is 0
+            if(mp.containsKey(sum)){
+                //add value at prefix sum in hashmap to counter
+                counter+=mp.get(sum);
+            }
+            
+            //incrementing count of prefix sum obtained in hashmap
+            if(mp.containsKey(sum)){
+                long k=mp.get(sum);
+                k++;
+                mp.put(sum,k);
+            }else
+                mp.put(sum,1L);
+         }
+            
+            //return counter
+            return counter;
+        
+    }
+}
