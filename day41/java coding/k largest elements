@@ -1,0 +1,55 @@
+//k largest elements
+//Given an array Arr of N positive integers and an integer K, find K largest elements from the array. 
+//The output elements should be printed in decreasing order.
+
+class Solution {
+    int[] kLargest(int[] arr, int n, int k) {
+        //create a priority queue with reverse order comparator. queue will store elements in descending order
+        PriorityQueue<Integer> pq=new PriorityQueue<>(Collections.reverseOrder());
+        for(int i=0;i<n-k;i++){ //adding initial elements to PriorityQueue
+            pq.add(arr[i]);     //n-k elements of input array are addeed to priority queue
+            
+        }
+        if(pq.isEmpty()){ //if priority queue is empty, all intial elements a re equal are equal,it sorts the entire array in descending order and return top k element
+            ArrayList<Integer> A=new ArrayList<>();
+            int ans[]=new int[k];
+            for(int i:arr){
+                A.add(i); //add all elements to arraylist
+                
+            }
+            
+            Collections.sort(A,Collections.reverseOrder()); //sorting arraylist in descending order
+            int in=0;
+            for(int i:A){
+                ans[in++]=i; //fill up the answer array with k largest element
+            }
+            return ans;//return answer array
+            
+        }
+        
+        //for remaining elements, check if current element is smaller than larger element in priority queue. if ture,it replaces larhest element in priority queue with current element
+        for(int i=n-k;i<n;i++){
+            if(pq.peek()>arr[i]){
+                pq.poll();
+                pq.add(arr[i]);
+            }
+        }
+        
+        ArrayList<Integer> A=new ArrayList<>();
+        int ans[]= new int[k];
+        int in=0;
+        for(int i=0;i<n;i++){//add all elements greater than or equal to largest element in priority queue to arrayList
+            if(arr[i]>=pq.peek())
+                A.add(arr[i]);
+        
+    }
+    Collections.sort(A,Collections.reverseOrder()); //sort arraylist in descending order
+    for(int i:A){
+        if(in<k)
+        ans[in++]=i;// fill up answer array with k largest elements
+        else break;
+    }
+    return ans;//return answer array
+    
+ }
+}
