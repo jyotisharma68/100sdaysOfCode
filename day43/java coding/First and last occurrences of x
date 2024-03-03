@@ -1,0 +1,44 @@
+//First and last occurrences of x
+//Given a sorted array arr containing n elements with possibly some duplicate, the task is to find the first and last occurrences of an element x in the given array.
+//Note: If the number x is not found in the array then return both the indices as -1.
+
+class GFG
+{
+    ArrayList<Integer> find(int arr[], int n, int x)
+    {
+        int l=0,r=n-1;
+        int left_index=-1;
+        while(l<=r){
+            int mid=(l+r)/2;
+            if(arr[mid]<x){
+                l=mid+1;
+            }else{
+                r=mid-1;
+                left_index=mid;
+            }
+        }
+        l=0;
+        r=n-1;
+        int right_index=-1;
+        while(l<=r){
+            int mid=(l+r)/2;
+            if(arr[mid]<=x){
+                l=mid+1;
+                right_index=mid;
+            }else{
+                r=mid-1;
+            }
+        }
+        ArrayList<Integer> ans=new ArrayList<>();
+        if(arr[left_index]!=x || arr[right_index]!=x){
+            ans.add(-1);
+            ans.add(-1);
+            return ans;
+        }
+        ans.add(left_index);
+        ans.add(right_index);
+        return ans;
+
+    }
+}
+
