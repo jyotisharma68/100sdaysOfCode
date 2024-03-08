@@ -1,0 +1,37 @@
+//Detect Loop in linked list
+//Given a linked list of N nodes. The task is to check if the linked list has a loop. Linked list can contain self loop.
+
+/* Node is defined as
+
+class Node
+{
+    int data;
+    Node next;
+    Node(int d) {data = d; next = null; }
+}
+
+*/
+
+
+class Solution {
+    //Function to check if the linked list has a loop.
+    public static boolean detectLoop(Node head){
+        //use 2 pointers and move one pointer(slow) by one node and another pointer(fast) by 2 nodes in each iteration
+        Node fast=head.next;
+        Node slow=head;
+        
+        while(fast !=slow){
+            //if node pointed by first pointer(fast) or node next to it is null,return false
+            if(fast==null || fast.next==null)
+            return false;
+            
+            fast=fast.next.next;
+            slow=slow.next;
+            
+            
+        }
+        
+        //if reached here it means both pointers fast and slow point to same node which shows presence of loop so return truw
+        return true;
+    }
+}
