@@ -1,0 +1,48 @@
+//Reverse a linked list
+//Given a linked list of N nodes. The task is to reverse this list.
+
+
+/* linked list node class:
+
+class Node {
+    int data;
+    Node next;
+    Node(int value) {
+        this.value = value;
+    }
+}
+
+*/
+
+class Solution
+{
+    //Function to reverse a linked list.
+    Node reverseList(Node head)
+    {
+        if(head==null)
+            return null;
+            
+            
+        //take 3 pointers to store current,previous and next nodes.
+        Node prev=null;
+        Node current=head;
+        Node next=current.next;
+        
+        while(current!=null){
+            //take next node as next
+            next=current.next;
+            
+            //store previous node in link part of current node
+            current.next=prev;
+            
+            //update prev from previous node to current node
+            prev=current;
+            
+            //update current node to next node
+            current=next;
+        }
+        return prev;
+ 
+    }
+}
+
