@@ -1,0 +1,55 @@
+//Remove duplicates from an unsorted linked list
+//Given an unsorted linked list of N nodes. The task is to remove duplicate elements from this unsorted Linked List. When a value appears in multiple nodes, 
+//the node which appeared first should be kept, all others duplicates are to be removed.
+
+
+/* The structure of linked list is the following
+class Node
+{
+    int data;
+    Node next;
+    Node(int d) {
+        data = d; 
+        next = null;
+    }
+}
+*/
+
+class Solution
+{
+    //Function to remove duplicates from unsorted linked list.
+    public Node removeDuplicates(Node head) 
+    {
+        //use set to store already seen values in list
+        HashSet<Integer> hs=new HashSet<>();
+        
+        //use 2 pointer one of which stores first node other null
+        Node current=head;
+        Node prev=null;
+        
+        //traverse over linked list
+        while(current!=null){
+            int curval=current.data;
+            
+            //if data at current node is already present in set,skip current node and 
+            //store node next to current in link of prev
+            if(hs.contains(curval)){
+                prev.next=current.next;
+                //delete current node which containss duplicates
+                current=null;
+            }
+            
+            //else just insert data at current node in set and update prev to current node
+            else{
+                hs.add(curval);
+                prev=current;
+                
+            }
+             //update current to next node of prev
+             current=prev.next;
+        }
+        return head;
+        
+       
+    }
+}
