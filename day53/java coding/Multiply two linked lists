@@ -1,0 +1,27 @@
+//Multiply two linked lists
+//Given elements as nodes of the two linked lists. The task is to multiply these two linked lists, say L1 and L2. 
+
+//Note: The output could be large take modulo 109+7.
+
+class GfG{
+  /*You are required to complete this method */
+   public long multiplyTwoLists(Node l1,Node l2){
+       long mod=1000000007L; //using this value for modulo operation
+
+		long num1=0,num2=0; //variables to store the numbers
+
+		while(l1!=null||l2!=null){ //iterating through both lists
+			if(l1!=null){
+				num1 = ((num1*10)%mod + (l1.data)%mod)%mod; //calculating number 1
+				l1 = l1.next; //moving to next node in list 1
+			}
+			if(l2!=null){
+				num2 = ((num2*10)%mod + l2.data%mod)%mod; //calculating number 2
+				l2 = l2.next; //moving to next node in list 2
+			}
+		}
+
+		return (num1%mod*num2%mod)%mod; //returning the multiplication of the two numbers modulo mod
+          
+   }
+}
