@@ -1,0 +1,43 @@
+//Sort a k sorted doubly linked list
+//Given a doubly linked list containing N nodes, where each node is at most K-indices away from its target position in the list. The problem is to sort the given doubly linked list.
+//The distance can be assumed in either of the directions (left and right).
+
+
+class Solution {
+    public Node sortAKSortedDLL(Node head, int k) {
+        if(head==null||head.next==null)
+            return head;
+            
+        //perform on all nodes in list
+        for(Node i=head.next;i!=null;i=i.next){
+            Node j=i;
+            
+            //there will be atmost k swaps for each element in list 
+            //since each node is k steps away from its correct position
+            while(j.prev!=null && j.data<j.prev.data){
+                //swap j and j.prev node
+                Node temp=j.prev.prev;
+                Node temp2=j.prev;
+                Node temp3=j.next;
+                
+                j.prev.next=temp3;
+                j.prev.prev=j;
+                j.prev=temp;
+                j.next=temp2;
+                if(temp!=null)
+                    temp.next=j;
+                    
+                if(temp3!=null)
+                    temp3.prev=temp2;
+                    
+                    
+            }
+            
+            //if j is now new head then reset head
+            if(j.prev==null)
+                head=j;
+        }
+        return head;
+        
+    }
+}
