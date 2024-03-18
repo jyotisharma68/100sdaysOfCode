@@ -1,0 +1,69 @@
+//Delete nodes having greater value on right
+//Given a singly linked list, remove all the nodes in the list which have any node on their right whose value is greater. (Not just immediate Right , but entire List on the Right)
+
+
+/*
+class Node {
+   int data;
+   Node next;
+
+  Node(int data) {
+      this.data = data;
+  }
+}
+*/
+class Solution
+{
+    Node compute(Node head)
+    {
+        // first reverse linked list
+        Node cur=head;
+        Node prev=null;
+        Node next;
+        
+        while(cur!=null){
+            next=cur.next;
+            cur.next=prev;
+            prev=cur;
+            cur=next;
+        }
+        
+        head=prev;
+        
+        //link list is reversed till here
+        
+        //compute and delete node which have larger node on left
+        Node current=head;
+        
+        Node maxNode=head;
+        Node temp;
+        
+        while(current!=null && current.next!=null){
+            if(current.next.data<maxNode.data){
+                temp=current.next;
+                current.next=temp.next;
+            }
+            else{
+                current=current.next;
+                maxNode=current;
+            }
+        }
+        
+        //reverse list again to get result
+        cur=head;
+        prev=null;
+        
+        while(cur!=null){
+            next=cur.next;
+            cur.next=prev;
+            prev=cur;
+            cur=next;
+            
+        }
+        head=prev;
+        
+        //head of list can be returned 
+        return head;
+        
+    }
+}
