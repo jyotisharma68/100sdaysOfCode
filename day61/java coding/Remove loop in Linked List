@@ -1,0 +1,68 @@
+//Remove loop in Linked List
+///Given a linked list of N nodes such that it may contain a loop.
+//A loop here means that the last node of the link list is connected to the node at position X(1-based index). If the link list does not have any loop, X=0.
+//Remove the loop from the linked list, if it is present, i.e. unlink the last node which is forming the loop.
+
+
+
+/*
+class Node
+{
+    int data;
+    Node next;
+}
+*/
+
+class Solution
+{
+    //Function to remove a loop in the linked list.
+    public static void removeLoop(Node head){
+        // use 2 pointers and move one (slow)pointer by one node and another pointer(fast) by 2nodes in each iteration
+        Node fast=head.next;
+        Node slow=head;
+        
+        while(fast!=slow){
+            //if node pointed by first pointer(fast) or node next to it is null,then loop is not present return 0
+            if(fast==null||fast.next==null)
+            return;
+            
+            
+            fast=fast.next.next;
+            slow=slow.next;
+            
+        }
+        
+        //both pointers now point to same node in loop
+        int size=1;
+        fast=fast.next;
+        
+        //start iterating loop with first pointer and continue till both pointers point to same node again
+        while(fast!=slow){
+            fast=fast.next;
+            //increment counter which stores length of loop
+            size+=1;
+            
+        }
+        
+        //update pointer again to starting node
+        slow=head;
+        fast=head;
+        
+        //move pointer(fast) by size-1 nodes
+        for(int i=0;i<size-1;i++)
+            fast=fast.next;
+            
+            
+        //keep iterating with both pointers till fast reaches a node such that next node 
+        //is ointed by slow. this situation slow is at node where loop starts and first at last node
+        //so simply update link ppart of first
+        
+        while(fast.next!=slow){
+            fast=fast.next;
+            slow=slow.next;
+        }
+        
+        //storing null in link part of last node
+        fast.next=null;
+    }
+}
