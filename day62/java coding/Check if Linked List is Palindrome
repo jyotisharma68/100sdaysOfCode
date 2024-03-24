@@ -1,0 +1,88 @@
+//Check if Linked List is Palindrome
+//Given a singly linked list of size N of integers. The task is to check if the given linked list is palindrome or not.
+
+
+
+/* Structure of class Node is
+class Node
+{
+	int data;
+	Node next;
+	
+	Node(int d)
+	{
+		data = d;
+		next = null;
+	}
+}*/
+
+class Solution
+{
+    //function to reverse linked list
+    Node reverse_list(Node head){
+        Node prev=null;
+        Node curr=head;
+        Node next;
+        
+        while(curr!=null){
+            next=curr.next;
+            curr.next=prev;
+            prev=curr;
+            curr=next;
+        }
+        
+        return prev;
+    }
+    //function to check whether 2 lists are identical
+    boolean is_identical(Node n1,Node n2){
+        //iterate over both list and return 0 if data at any node is not equal in both list
+        for(  ;n1!=null && n2!=null; n1=n1.next, n2=n2.next)
+        
+            if(n1.data!=n2.data)
+                return false;
+                
+                
+        //return 1 if data at all node are equal
+        return true;
+    }
+    
+    //Function to check whether the list is palindrome.
+    boolean isPalindrome(Node head) 
+    {
+        int size=0;
+        Node ptr;
+        //find no of nodes in list
+        for(ptr=head ;ptr!=null; ptr=ptr.next)
+            size++;
+            
+        if(size<2)  return true;
+        
+        //split list into 2 halves. in case of odd no of elements first half will have middle element
+        ptr=head;
+        int mid_pt=(size-1)/2;
+        
+        //use a pointer to get to middle element to get second half of list
+        while(mid_pt>0){
+            ptr=ptr.next;
+            mid_pt--;
+        }
+        
+        //ptr now holds address of last element of first half
+        //store elements of second half separate in head2
+        Node head2=ptr.next;
+        ptr.next=null;
+        
+        //reverse second half of list
+        head2=reverse_list(head2);
+        
+        //check whether both halves are identical
+        boolean ret=is_identical(head,head2);
+        
+        //reverse back second half of list and connect it to first half
+        head2=reverse_list(head2);
+        ptr.next=head2;
+        
+        //return 1 if list is palindrome else 0
+        return ret;
+    }    
+}
