@@ -1,0 +1,61 @@
+//Add 1 to a number represented as linked list
+//A number N is represented in Linked List such that each digit corresponds to a node in linked list. You need to add 1 to it.
+
+/*
+class Node{
+    int data;
+    Node next;
+    
+    Node(int x){
+        data = x;
+        next = null;
+    }
+} 
+*/
+
+class Solution
+{
+    public static Node reverse(Node head){
+        //this function reverses linked list
+        Node prev=null;
+        Node current=head;
+        Node next;
+        
+        while(current!=null){
+            next=current.next;  //stores next node
+            current.next=prev;  //link current node to previous
+            prev=current;       //update prev
+            current=next;       //update current
+        }
+        
+        return prev;
+    }
+    public static Node addOne(Node head) 
+    { 
+        head=reverse(head);    //reverse list to make addition easy
+        
+        Node current=head;
+        int carry=1;
+        
+        while(carry!=0){
+            current.data+=1;  //add one to current node
+            
+            
+            if(current.data<10) return reverse(head);
+            
+           //if no carry ,reverse back list and return it
+           else current.data=0;
+            
+            //else continue with taking carry forward
+            
+            if(current.next==null) break;
+            //if end of list ,break from loop
+            
+            else current=current.next;
+            //else move to next node
+        }
+        
+        current.next=new Node(1);  //add new node for carried 1
+        return reverse(head);
+    }
+}
