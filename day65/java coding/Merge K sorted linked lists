@@ -1,0 +1,69 @@
+//Merge K sorted linked lists
+//Given K sorted linked lists of different sizes. The task is to merge them in such a way that after merging they will be a single sorted linked list.\
+
+
+/*class Node
+{
+    int data;
+    Node next;
+    
+    Node(int key)
+    {
+        data = key;
+        next = null;
+    }
+}
+*/
+
+// a is an array of Nodes of the heads of linked lists
+// and N is size of array a
+
+
+class Solution
+{
+    //function to merge 2 sorted list into sorted list
+    Node merge(Node a,Node b){
+        //base case when either of 2 list is null
+        if(a==null)
+            return b;
+        if(b=null)
+            return a;
+            
+        //compare data in both list and store smaller in result recursive call merge function call merge function for next node in result
+        if(a.data<b.data){
+            a.next=merge(a.next,b);
+            //return resultant list
+            return a;
+        }
+        else{
+            b.next=merge(a,b.next);
+            //return resultant list
+            return b;
+        }
+    }
+    //Function to merge K sorted linked list.
+    Node mergeKList(Node[]arr,int K)
+    {
+        int N=K;
+        int last=N-1;
+        while(last!=0){
+            int i=0;int j=last;
+            while(i<j){
+                //call merge function to merge 2diff list into one list which has sorted element
+                arr[i]=merge(arr[i],arr[j]);
+                
+                //going for next pair of list
+                
+                i++;j--;
+                
+                //if all pait are merge ,update last
+                if(i>=j)
+                    last=j;
+            }
+        }
+        
+        //return merged list
+        return arr[0];
+    }
+}
+
