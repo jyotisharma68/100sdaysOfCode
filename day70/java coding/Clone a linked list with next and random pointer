@@ -1,0 +1,68 @@
+//Clone a linked list with next and random pointer
+//You are given a special linked list with N nodes where each node has a next pointer pointing to its next node. You are also given M random pointers, where you will be given M number of pairs denoting two nodes a and b  i.e. a->arb = b (arb is pointer to random node).
+
+C//onstruct a copy of the given list. The copy should consist of exactly N new nodes, where each new node has its value set to the value of its corresponding original node. Both the next and random pointer of the new nodes should point to new nodes in the copied list such that the pointers in the original list and copied list represent the same list state.
+  // None of the pointers in the new list should point to nodes in the original list.
+
+
+  
+/*
+class Node {
+    int data;
+    Node next, arb;
+
+    Node(int d) 
+    { 
+        data = d;
+        next = arb = null; 
+        
+    }
+}*/
+
+class Clone {
+    //Function to clone a linked list with next and random pointer.
+    Node copyList(Node head) {
+        if(head==null) return head;
+        
+        Node t=head;
+        while(t!=null){
+            
+            //make identical list merged with original list
+            //create copy of node 1 and insert it btw node1 and node2 orginal list,creat copy of 2 and
+            //insert it btw 2&3 and continue this
+            Node n=new Node(t.data);
+            n.next=t.next;
+            t.next=n;
+            t=n.next;
+        }
+        
+        t=head;
+        Node head2=head.next;
+        
+        while(t!=null){
+            //set random pointer of duplicate list
+            if(t.arb==null)
+                t.next.arb=null;
+                
+            else{
+                t.next.arb=t.arb.next;
+            }
+            t=t.next.next;
+        }
+        t=head;
+        while(t!=null){
+            //separate 2 merged list
+            head=t.next.next;
+            
+            if(head!=null)
+            t.next.next=head.next;
+            else
+            t.next.next=null;
+            
+            t.next=head;
+            t=head;
+        }
+        //return cloned list
+        return head2;
+    }
+}
