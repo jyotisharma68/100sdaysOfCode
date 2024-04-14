@@ -1,0 +1,19 @@
+//Insert an Element at the Bottom of a Stack
+//You are given a stack st of n integers and an element x. You have to insert x at the bottom of the given stack. 
+
+class Solution {
+    public Stack<Integer> insertAtBottom(Stack<Integer> st, int x) {
+        recur(st,x);
+        
+        return st;
+    }
+    public void recur(Stack<Integer> st, int x){
+        if(st.isEmpty()){
+            st.push(x);
+            return;
+        }
+        int p=st.pop();
+        recur(st,x);
+        st.push(p);
+    }
+}
