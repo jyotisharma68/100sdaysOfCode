@@ -1,0 +1,54 @@
+//Stack using two queues
+//Implement a Stack using two queues q1 and q2
+
+
+class Queues
+{
+    Queue<Integer> q1 = new LinkedList<Integer>();
+    Queue<Integer> q2 = new LinkedList<Integer>();
+    
+    //Function to push an element into stack using two queues.
+    void push(int a)
+    {
+	    // while first queue is not empty, keep popping front element from 1sy queue and store element in 2nd queue
+	    while(!q1.isEmpty()){
+	        int k=q1.peek();
+	        
+	        //pop element from 1st queue
+	        q1.remove();
+	        
+	        //push it into 2nd queue
+	        q2.add(k);
+	    }
+	    
+	    //q1 is empty now ,push given no into 1st queue
+	    q1.add(a);
+	    
+	    //while 2nd queue is not empty,keep ignoring front element from 2nd queue and store element in 1st queue
+	    while(!q2.isEmpty()){
+	        int k=q2.peek();
+	        //pop element from 2nd queue
+	        q2.remove();
+	        
+	        //push it into 1st queue
+	        q1.add(k);
+	    }
+    }
+    
+    //Function to pop an element from stack using two queues. 
+    int pop()
+    {
+	    // if 1st queue is not empty,can pop an element
+	    if(!q1.isEmpty()){
+	        //store front element from queue in variable and pop that element
+	        int r=q1.peek();
+	        q1.remove();
+	        
+	        //return popped element
+	        return r;
+	    }
+	    //else return -1
+	    return -1;
+    }
+	
+}
