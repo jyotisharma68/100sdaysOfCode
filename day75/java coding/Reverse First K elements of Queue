@@ -1,0 +1,43 @@
+//Reverse First K elements of Queue
+//Given an integer K and a queue of integers, we need to reverse the order of the first K elements of the queue, leaving the other elements in the same relative order.
+
+//Only following standard operations are allowed on queue.
+
+//enqueue(x) : Add an item x to rear of queue
+//dequeue() : Remove an item from front of queue
+//size() : Returns number of elements in queue.
+//front() : Finds front item.
+
+class GfG {
+    // Function to reverse first k elements of a queue.
+    public Queue<Integer> modifyQueue(Queue<Integer> q, int k) {
+        // using stack and another queue to reverse first k elements
+        Stack<Integer> s=new Stack<>();
+        Queue<Integer> qq=new LinkedList<>();
+        
+        //pop first k elements from queue and push it in stack
+        while(k-->0){
+            int a=q.peek();
+            q.poll();
+            s.push(a);
+        }
+        
+        //while stack is not empty,push elements into new queue
+        while(!s.isEmpty()){
+            int a=s.peek();
+            s.pop();
+            qq.add(a);
+        }
+        
+        add rest of elements of original queue to new queue
+        while(!q.isEmpty()){
+            int a=q.peek();
+            q.poll();
+            qq.add(a);
+        }
+        //return new queue
+        return qq;
+        
+    }
+}
+
