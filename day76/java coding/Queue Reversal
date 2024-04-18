@@ -1,0 +1,30 @@
+//Queue Reversal
+//Given a Queue Q containing N elements. The task is to reverse the Queue. Your task is to complete the function rev(), that reverses the N elements of the queue.
+
+class GfG{
+    //Function to reverse the queue.
+    public Queue<Integer> rev(Queue<Integer> q){
+        //using a stack to reverse queue
+        Stack<Integer> s=new Stack<>();
+        
+        //push elements from queue into stack and remove them from queue
+        while(!q.isEmpty()){
+            int x=q.peek();
+            q.poll();
+            s.push(x);
+            
+            
+        }
+        
+        //push elements back into queue from stack and remove tehm from stack
+        //queue gets reversed as stack follows last in first out
+        while(!s.isEmpty()){
+            int x=s.peek();
+            s.pop();
+            q.add(x);
+        }
+        
+        //return reversed queue
+        return q;
+    }
+}
