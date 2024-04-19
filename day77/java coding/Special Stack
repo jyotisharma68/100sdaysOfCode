@@ -2,6 +2,7 @@
 //Design a data-structure SpecialStack that supports all the stack operations like push(), pop(), isEmpty(), isFull() and an additional operation getMin() which should return minimum element from the SpecialStack. Your task is to complete all the functions, using stack data-Structure.
 
 
+
 class GfG{
 	public void push(int a,Stack<Integer> s)
 	{
