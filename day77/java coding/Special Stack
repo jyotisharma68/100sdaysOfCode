@@ -1,0 +1,39 @@
+//Special Stack
+//Design a data-structure SpecialStack that supports all the stack operations like push(), pop(), isEmpty(), isFull() and an additional operation getMin() which should return minimum element from the SpecialStack. Your task is to complete all the functions, using stack data-Structure.
+
+
+class GfG{
+	public void push(int a,Stack<Integer> s)
+	{
+	    s.push(a);   //pushes element 'a' into stack 's'
+	}
+	public int pop(Stack<Integer> s)
+        {
+            int a=s.pop(); //removes and return top element from stack 's'
+            return a; //returns removed element
+	}
+	public int min(Stack<Integer> s)
+        {
+           GfG g=new GfG(); //creates instance of gfg class
+           int m=g.pop(s); //removes and return top element from stack 's'
+           while(!g.isEmpty(s)){ //runs until stack 's' is not empty
+               int n=g.pop(s);//removes and return top element from satck 's'
+               if(n<m)//checks if removed element is smaller than current min element
+                   m=n;//updates min element
+               
+           }
+           return m;//returns min element in stack
+	}
+	public boolean isFull(Stack<Integer>s, int n)
+        {
+           if(s.size()==n)//checks if  size of stack 's'is equal to 'n'
+               return true;//returns true if stack is full
+            return false; //returns false if stack is not full
+	}
+	public boolean isEmpty(Stack<Integer>s)
+        {
+           if(s.size()==0)//checks if size od stack 's' is equal to 0
+               return true; //true if stack is empty
+            return false; //false if stack is not empty
+	}
+}
