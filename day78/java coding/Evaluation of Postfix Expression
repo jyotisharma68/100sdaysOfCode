@@ -1,0 +1,36 @@
+//Evaluation of Postfix Expression
+//Given string S representing a postfix expression, the task is to evaluate the expression and find the final value. Operators will only include the basic arithmetic operators like *, /, + and -.
+
+
+class Solution
+{
+    //Function to evaluate a postfix expression.
+    public static int evaluatePostFix(String S)
+    {
+         Stack<Integer> st=new Stack<Integer>();
+         int n=S.length();
+         
+         //iterate over given string
+         for(int i=0;i<n;i++){
+             //if current char is an operan,push it to stack
+             if(Character.isDigit(S.charAt(i))){
+                 st.push(S.charAt(i)-'0')
+             }
+             //else current char is operator
+             else{
+                 int val1=st.pop();
+                 int val2=st.pop();
+                 switch (S.charAt(i)){
+                     //performing required operation and push result in stack
+                     case '+': st.push(val2+val1); break;
+                     case '*': st.push(val2*val1); break;
+                     case '-': st.push(val2-val1); break;
+                     case '/': st.push(val2/val1); break;
+                 }
+             }
+         }
+         
+         //return top element of stack
+         return st.pop();
+    }
+}
