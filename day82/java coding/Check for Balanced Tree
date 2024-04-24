@@ -1,0 +1,76 @@
+//Check for Balanced Tree
+/*
+Given a binary tree, find if it is height balanced or not. 
+A tree is height balanced if difference between heights of left and right subtrees is not more than one for all nodes of tree. 
+
+A height balanced tree
+        1
+     /     \
+   10      39
+  /
+5
+
+An unbalanced tree
+        1
+     /    
+   10   
+  /
+
+*/
+
+
+/* A binary tree node class
+class Node
+{
+	int data;
+	Node left,right;
+	
+	Node(int d)
+	{
+		data = d;
+		left = right = null;		
+	}
+} */
+class Height{
+    int height=0;
+}
+class Tree
+{
+    Node root;
+    //function to check for balance tree
+    
+    boolean isBalancedUtil(Node root, Height height){
+        //if root is null,return true
+        if(root==null){
+            height.height=0;
+            return true;
+        }
+        
+        Height lheight=new Height(), rheight=new Height();
+        
+        //calling function isBalancedUtil recursively for heights of left and right subtrees
+        //store returned values in l and r
+        boolean l=isBalancedUtil(root.left, lheight);
+        boolean r=isBalancedUtil(root.right, rheight);
+        int lh=lheight.height, rh=rheight.height;
+        
+        //height of current node is (max of height of left and right subtrees)+1
+        height.height=(lh>rh ? lh:rh)+1;
+        
+        //if differnece btw heights of left and right subtrees is 2 or < 2 then this node is not balanced ,return false
+        if(Math.abs(lh-rh)>=2)
+            return false;
+            
+        //if this node is balanced and left and right subtrees are balanced then return true
+        else
+            return l&&r;
+        
+    }
+    
+    //Function to check whether a binary tree is balanced or not.
+    boolean isBalanced(Node root)
+    {
+	    Height height=new Height();
+	    return isBalancedUtil(root,height);
+    }
+}
