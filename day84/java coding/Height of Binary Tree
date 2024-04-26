@@ -1,0 +1,33 @@
+//Height of Binary Tree
+//Given a binary tree, find its height.
+
+
+/* 
+class Node
+{
+    int data;
+    Node left, right;
+
+    Node(int item)
+    {
+        data = item;
+        left = right = null;
+    }
+}
+ */
+
+class Solution {
+    //Function to find the height of a binary tree.
+    int height(Node node) 
+    {
+        //if node is null,return 0
+        if(node==null)
+            return 0;
+            
+            
+        //else call recursive fucntion,height for left and right subtree and choose their max
+        //also add 1 to result which indicates height of root of tree
+        else
+            return 1 + Math.max(height(node.left), height(node.right));
+    }
+}
