@@ -1,0 +1,51 @@
+//Right View of Binary Tree
+/*
+Given a Binary Tree, find Right view of it. Right view of a Binary Tree is set of nodes visible when tree is viewed from right side.
+
+Right view of following tree is 1 3 7 8.
+
+          1
+       /     \
+     2        3
+   /   \      /    \
+  4     5   6    7
+    \
+     8
+     
+*/
+
+
+class Solution{
+    
+    int max_level=0;
+    
+    //function to get right view of binary tree
+    void rightViewUtil(ArrayList<Integer> arr, Node node, int level){
+        
+        //if root is null, simply return
+        if(node==null)
+            return;
+            
+        //if this is last node of its level then it is right view
+        if(max_level<level){
+            //store data of current node in list
+            arr.add(node.data);
+            max_level=level;
+        }
+        
+        //call function recursively for right and left
+        //subtrees of current node
+        rightViewUtil(arr, node.right, level+1);
+        rightViewUtil(arr, node.left, level+1);
+    }
+    //Function to return list containing elements of right view of binary tree.
+    ArrayList<Integer> rightView(Node node) {
+        
+        ArrayList<Integer> arr= new ArrayList<Integer>();
+        rightViewUtil(arr, node, 1);
+        
+        //return list
+        return arr;
+    }
+}
+
