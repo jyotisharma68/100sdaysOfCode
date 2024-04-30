@@ -1,0 +1,51 @@
+//Check if all leaves are at same level
+//Given a binary tree with n nodes, determine whether all the leaf nodes are at the same level or not. Return true if all leaf nodes are at the same level, and false otherwise.
+
+
+
+/* A Binary Tree node
+class Node
+{
+    int data;
+    Node left, right;
+
+    Node(int item)
+    {
+        data = item;
+        left = right = null;
+    }
+}
+*/
+class Leaf{
+    int leaflevel=0;
+}
+
+class Solution
+{
+   boolean checkutil(Node node, int level, Leaf leafLevel) {
+        // Base case: If current node is null, return true
+        if (node == null)
+            return true;
+
+        // If current node is a leaf node
+        if (node.left == null && node.right == null) {
+            // If this is the first leaf node encountered, store its level and return true
+            if (leafLevel.leaflevel == 0) {
+                leafLevel.leaflevel = level;
+                return true;
+            }
+            // If the current leaf node is at the same level as the first encountered leaf node, return true
+            return (level == leafLevel.leaflevel);
+        }
+        
+        // Recursive call on left and right child, incrementing the level by 1
+        return (checkutil(node.left, level + 1, leafLevel) && checkutil(node.right, level + 1, leafLevel));
+    }
+    
+    boolean check(Node root) {
+        Leaf mylevel = new Leaf();
+        int level = 0;
+        // Call to the util function to check if all leaf nodes are at the same level
+        return checkutil(root, level, mylevel);
+    }
+}
