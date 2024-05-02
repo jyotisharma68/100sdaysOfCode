@@ -1,0 +1,50 @@
+//Reverse Level Order Traversal
+///Given a binary tree of size n, find its reverse level order traversal. ie- the traversal must begin from the last level.
+
+
+
+/* 
+class Node
+{
+    int data;
+    Node left, right;
+
+    Node(int item)
+    {
+        data = item;
+        left = right = null;
+    }
+}
+*/
+
+class Tree
+{
+    public ArrayList<Integer> reverseLevelOrder(Node node) 
+    {
+        ArrayList<Integer> ans=new ArrayList<Integer>();
+        Stack<Node> S=new Stack<>();
+        Queue<Node> Q=new LinkedList<>();
+        Q.add(node);
+        
+        
+        while(Q.isEmpty()==false)
+        {
+            //dequeue node and make it root
+            node=Q.peek();
+            Q.remove();
+            S.push(node);
+            
+            //enqueue right child //right child is enqueued before left
+            if(node.right!=null)
+                Q.add(node.left);
+        }
+        
+        //now pop all items from stack one by one and print them
+        while(S.empty()==false){
+            node=S.peek();
+            ans.add(node.data);
+            S.pop();
+        }
+        return ans;
+    }
+}      
