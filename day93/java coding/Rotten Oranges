@@ -1,0 +1,74 @@
+//Rotten Oranges
+/*
+Given a grid of dimension nxm where each cell in the grid can have values 0, 1 or 2 which has the following meaning:
+0 : Empty cell
+1 : Cells have fresh oranges
+2 : Cells have rotten oranges
+
+We have to determine what is the earliest time after which all the oranges are rotten.
+A rotten orange at index [i,j] can rot other fresh orange at indexes [i-1,j], [i+1,j], [i,j-1], [i,j+1] (up, down, left and right) in unit time. 
+*/
+
+
+class Solution
+{
+    //Function to find minimum time required to rot all oranges. 
+    public int orangesRotting(int[][] grid)
+    {
+        int ct=0,res=-1;
+        
+        //queue to store cells which have rotten oranges
+        Queue<ArrayList<Integer>> q=new LinkedList<>();
+        int[] dx={-1,1,0,0};
+        int[] dy={0,0,-1,1};
+        
+        //traverse over all cells of matrix
+        for(int i=0;i<grid.length;i++){
+            for(int j=0;j<grid[0].length;j++){
+                //if grid value is more than 0,increment counter
+                if(grid[i][j]>0)
+                    ct++;
+                //if grid value is 2,push the cell indexes into queue
+                if(grid[i][j]==2){
+                    ArrayList<Integer> temp=new ArrayList<>();
+                    temp.add(i);
+                    temp.add(j);
+                    q.add(temp);
+                }
+            }
+        }
+        
+        while(!q.isEmpty()){
+            //increment result counter
+            res++;
+            int size=q.size();
+            for(int k=0;k<size;k++){
+                //pop front element of queue and store cell indexes
+                ArrayList<Integer> cur=q.poll();
+                ct--;
+                
+                //traverse adjacent vertices.
+                for(int i=0;i<4;i++){
+                    int x=cur.get(0)+dx[i], y=cur.get(1)+dy[i];
+                    
+                    //if cell indexes are within matrix bound and grid value is not 1,continue
+                    //loop else store 2 in current cell and push cell indexes in queue
+                    if(x>=grid.length|| x<0 || y>=grid[0].length|| y<0 || grid[x][y]!=1)
+                        continue;
+                        
+                        
+                    grid[x][y]=2;
+                    ArrayList<Integer> temp=new ArrayList<>();
+                    temp.add(x);
+                    temp.add(y);
+                    q.add(temp);
+                }
+            }
+        }
+        
+        //return min time
+        if(ct==0)
+            return Math.max(0,res);
+        return -1;
+    }
+}
