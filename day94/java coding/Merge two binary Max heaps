@@ -1,0 +1,59 @@
+//Merge two binary Max heaps
+//Given two binary max heaps as arrays, merge the given heaps to form a new max heap.
+
+
+class Solution{
+    
+    public void maxHeapify(int[] arr,int n,int idx){
+        //if index is  out bounds,return
+        if(idx>=n) return;
+        
+        //calculate left and right child indices
+        int l=2*idx+1;
+        int r=2*idx+2;
+        
+        int max;
+        
+        //find max element btw current element and its left child
+        if(l<n && arr[l]>arr[idx])
+            max=1;
+        else
+            max=idx;
+            
+        //find max element btw previous max and right child
+        if(r<n && arr[r]>arr[max]) max=r;
+        
+        //if min element is not current element,swap and recursively call maxHeapify
+        if(max!=idx){
+            int temp=arr[max];
+            arr[max]=arr[idx];
+            arr[idx]=temp;
+            maxHeapify(arr,n,max);
+        }
+    }
+    
+    
+    public void buildMaxHeap(int[] arr, int n ){
+        //iterate from last non-leaf node to root and call maxHeapify
+        for(int i=n/2-1; i>=0;i--)
+           maxHeapify(arr,n,i);
+    }
+    
+    
+    public int[] mergeHeaps(int[] a, int[] b, int n, int m) {
+        //create a merged array
+        int[] merged=new int[n+m];
+        
+        //copy elements from array a to merged array
+        for(int i=0;i<n;i++) merged[i]=a[i];
+        
+        //copy elements from array b to merged array
+        for(int i=0;i<m;i++) merged[n+i]=b[i];
+        
+        //build max heap of merged array
+        buildMaxHeap(merged,n+m);
+        
+        //return merged array
+        return merged;
+    }
+}
