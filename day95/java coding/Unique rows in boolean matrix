@@ -1,0 +1,48 @@
+//Unique rows in boolean matrix
+//Given a binary matrix your task is to find all unique rows of the given matrix in the order of their appearance in the matrix.
+
+
+class GfG
+{
+    public static ArrayList<ArrayList<Integer>> uniqueRow(int a[][],int r, int c)
+    {
+        //using a hashset to store unique rows
+        HashSet<String> st=new HashSet<>();
+        //use an arraylist of arraylists to store unique wors in correct order
+        ArrayList<ArrayList<Integer>> vec=new ArrayList<>();
+        
+        //iterate over matrix
+        for(int i=0;i<r;i++){
+            StringBuilder curr=new StringBuilder();
+            //convert each row into string representation
+            for(int j=0;j<c;j++){
+                curr.append('0' + a[i][j]);
+            }
+            //add string representation of row to HashSet to check for uniqueness
+            st.add(curr.toString());
+        }
+        
+        //iterate over matrix again
+        for(int i=0;i<r;i++){
+            StringBuilder curr=new StringBuilder();
+            //convert each row into string representation
+            for(int j=0;j<c;j++){
+                curr.append('0' +a[i][j]);
+            }
+            
+            /////if string representation is found in hashset,remove it from hashset
+            //add row to arraylist vec
+            if(st.contains(curr.toString())){
+                st.remove(curr.toString());
+                ArrayList<Integer> demo=new ArrayList<>();
+                for(int j=0;j<c;j++){
+                    demo.add(a[i][j]);
+                }
+                vec.add(demo);
+            }
+        }
+        
+        //return arraylist vec containing unique rows
+        return vec;
+    }
+}
