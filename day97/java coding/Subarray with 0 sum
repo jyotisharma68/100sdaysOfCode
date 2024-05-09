@@ -1,0 +1,30 @@
+//Subarray with 0 sum
+//Given an array of integers. Find if there is a subarray (of size at-least one) with 0 sum. You just need to return true/false depending upon whether there is a subarray present with 0-sum or not. Printing will be taken care by the driver code.
+
+class Solution{
+    //Function to check whether there is a subarray present with 0-sum or not.
+    static boolean findsum(int arr[],int n)
+    {
+        //using Hashmap to store prefix sum which has appeared already
+        HashMap<Integer, Integer> hM= new HashMap<Integer, Integer>();
+        
+        int sum=0;
+        
+        /iterate over array
+        for(int i=0;i<arr.length;i++){
+            //store prefix sum
+            sum+=arr[i];
+            
+            //if prefix sum is 0 or if it is already present is HashMap then it it repeated which means
+            //there is subarray whose summation is 0,return true
+            if(sum==0 || hM.get(sum)!=null)
+                return true;
+                
+            //store every prefix sum obtained in Hashmap
+            hM.put(sum,i);
+        }
+        
+        //retunr false if we dont get any subarray with 0 sum
+        return false;
+    }
+}
