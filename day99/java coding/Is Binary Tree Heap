@@ -1,0 +1,55 @@
+//Is Binary Tree Heap
+//Given a binary tree. The task is to check whether the given tree follows the max heap property or not.
+//Note: Properties of a tree to be a max heap - Completeness and Value of node greater than or equal to its child.
+
+
+/*
+Node defined as
+class Node{
+    int data;
+    Node left,right;
+    Node(int d){
+        data=d;
+        left=right=null;
+    }
+}
+*/
+
+class Solution {
+    //function  to count no of nodes in tree
+    int countNodes(Node root){
+        if(root==null) return 0;
+        return (1+countNodes(root.left)+ countNodes(root.right));
+    }
+    
+    //function to check if tree is valid based on level and no of nodes
+    boolean isValid(Node tree,int level,int no){
+        if(tree==null) return true;
+        if(level>=no) return false;
+       return isValid(tree.left, 2 * level + 1, no) &&
+               isValid(tree.right, 2 * level + 2, no);
+    }
+    
+    //function to check if heap property holds for every node
+    boolean propHoldes(Node root){
+        if (root.left == null && root.right == null) return true;
+        if (root.right == null)
+            return root.data > root.left.data;
+        else {
+            if (root.data >= root.left.data && root.data >= root.right.data)
+                return propHoldes(root.left) && propHoldes(root.right);
+            else
+                return false;
+        }
+    }
+    
+    //function to check if tree is valid heap
+    
+    boolean isHeap(Node tree) {
+        if(tree==null) return true;
+        int no_of_nodes=countNodes(tree);
+        if(isValid(tree,0,no_of_nodes)==true  && propHoldes(tree)==true)
+            return true;
+        return false;
+    }
+}
